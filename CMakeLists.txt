@@ -23,6 +23,16 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Purchase
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        Widgets/QuantityWidget.h Widgets/QuantityWidget.cpp Widgets/QuantityWidget.ui
+        Common/DataFormat/OrderDetails.h Common/DataFormat/OrderDetails.cpp
+        Common/DataFormat/OrderSummary.h Common/DataFormat/OrderSummary.cpp
+        Widgets/DataUpdatation/NewItemDialog.h Widgets/DataUpdatation/NewItemDialog.cpp Widgets/DataUpdatation/NewItemDialog.ui
+        Common/Constants.h
+        Common/Items.h
+        Common/CMakeLists.txt
+        Widgets/Overlay/NavigationOverlay.h Widgets/Overlay/NavigationOverlay.cpp Widgets/Overlay/NavigationOverlay.ui
+        Widgets/TakeOrder/TakeOrderMainOverlay.h Widgets/TakeOrder/TakeOrderMainOverlay.cpp
+        Widgets/TakeOrder/TakeOrder.h Widgets/TakeOrder/TakeOrder.cpp Widgets/TakeOrder/TakeOrder.ui
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Purchase APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

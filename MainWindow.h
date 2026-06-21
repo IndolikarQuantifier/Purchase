@@ -16,7 +16,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
-
+private slots:
+    void OnNewItemButtonClicked();
+    void OnTakeOrderButtonClicked();
 private:
     Ui::MainWindow* ui;
 };

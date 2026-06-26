@@ -31,6 +31,7 @@ private:
     void initItemTypes();
     void initFileDialog();
     void initLineEdits();
+    void initDataFile();
     bool isValidInfo();
 
     void ResetDialog();

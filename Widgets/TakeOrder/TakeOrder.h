@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QStringList>
+#include <QListView>
 
 namespace Ui {
 class TakeOrder;
@@ -18,9 +19,12 @@ public:
 
 private:
     void initTabWidget();
+    void initOrderTableWidget();
 
     Ui::TakeOrder* ui;
     QStringList m_tabs;
+    QListView m_ItemLists;
+
 };
 
 #endif // TAKEORDER_H

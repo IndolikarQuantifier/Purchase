@@ -13,7 +13,29 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QFrame" name="TakeOrderFrame">
+     <property name="frameShape">
+      <enum>QFrame::Shape::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLineEdit" name="SearchBoxLineEdit"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="SearchButton">
+        <property name="text">
+         <string>Search</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item>
     <widget class="QTabWidget" name="TakeOrderTabWidget"/>
    </item>

@@ -1,4 +1,5 @@
 #include "NavigationOverlay.h"
+#include "ui_NavigationOverlay.h"
 
 NavigationOverlay::NavigationOverlay(QWidget* parent)
   : QDialog(parent)
@@ -10,4 +11,9 @@ NavigationOverlay::NavigationOverlay(QWidget* parent)
 NavigationOverlay::~NavigationOverlay()
 {
     delete ui;
+}
+
+QStackedWidget *NavigationOverlay::GetnavigationArea() const
+{
+    return ui->NavigationStackedWidget;
 }

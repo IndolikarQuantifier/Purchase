@@ -24,6 +24,11 @@ unsigned int QuantityWidget::quantityCount()
     return m_Quantity;
 }
 
+void QuantityWidget::setQty(unsigned int qty)
+{
+    ui->QuantityLineEdit->setText(QString::number(qty));
+}
+
 void QuantityWidget::initQuantityButtons()
 {
     ui->RemoveButton->setDisabled(true);

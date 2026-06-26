@@ -2,7 +2,7 @@
 #define NAVIGATIONOVERLAY_H
 
 #include <QDialog>
-#include "ui_NavigationOverlay.h"
+#include <QStackedWidget>
 
 namespace Ui {
 class NavigationOverlay;
@@ -17,7 +17,9 @@ public:
     ~NavigationOverlay();
 
 protected:
+    QStackedWidget* GetnavigationArea() const;
     Ui::NavigationOverlay* ui;
+
 };
 
 #endif // NAVIGATIONOVERLAY_H

@@ -1,7 +1,7 @@
 #include "NewItemDialog.h"
 #include "ui_NewItemDialog.h"
-#include "../../Common/Constants.h"
-#include "../../Common/Items.h"
+#include <Constants.h>
+#include <Items.h>
 #include <QFileDialog>
 #include <QStandardItem>
 #include <QStandardItemModel>
@@ -24,6 +24,7 @@ NewItemDialog::NewItemDialog(QWidget* parent)
     initItemTypes();
     initFileDialog();
     initLineEdits();
+    initDataFile();
 }
 
 NewItemDialog::~NewItemDialog()
@@ -40,23 +41,29 @@ void NewItemDialog::OnIconSelected()
 
 void NewItemDialog::OnSaveClicked()
 {
-    if(isValidInfo()) {
-        if(!m_ItemDataFile.open(QIODevice::Append)) {
-            ui->StatusPlainTextEdit->setPlainText(tr("Error opening file"));
-            return;
+    if(isValidInfo())
+    {
+        if(!m_ItemDataFile.isOpen())
+        {
+            if(!m_ItemDataFile.open(QIODeviceBase::Append))
+            {
+                ui->StatusPlainTextEdit->setPlainText(qPrintable(m_ItemDataFile.errorString()));
+                ResetDialog();
+                return;
+            }
         }
         QDataStream out(&m_ItemDataFile);
         out.setVersion(QDataStream::Qt_4_1);
-        Item item(ui->NewItemTypeComboBox->itemText(m_ItemTypeIndex), m_NewItemName, "", m_NewItemPrice);
-        out << Purchase::NEW_ITEM_MAGIC_NUMBER;
+        Item item(ui->NewItemTypeComboBox->currentText(), m_NewItemName, "", m_NewItemPrice);
         out << item.itemType << item.itemName << item.iconPath << item.itemPrice;
+        ui->StatusPlainTextEdit->setPlainText(tr("Entry added Successfully..."));
         ResetDialog();
     }
-
 }
 
 void NewItemDialog::OnCancelClicked()
 {
+    m_ItemDataFile.close();
     emit reject();
 }
 
@@ -137,6 +144,20 @@ void NewItemDialog::initLineEdits()
     QRegularExpressionValidator* itemPriceValidator = new QRegularExpressionValidator(itemPriceRegularExpression, this);
     ui->NewItemPriceLabelLineEdit->setValidator(itemPriceValidator);
     connect(ui->NewItemPriceLabelLineEdit, &QLineEdit::textChanged, this, &NewItemDialog::OnItemPriceLineEditValueChanged);
+}
+
+void NewItemDialog::initDataFile()
+{
+    if(!m_ItemDataFile.exists())
+    {
+        if(m_ItemDataFile.open(QIODeviceBase::WriteOnly))
+        {
+            QDataStream out(&m_ItemDataFile);
+            out.setVersion(QDataStream::Qt_4_1);
+            out << Purchase::NEW_ITEM_MAGIC_NUMBER;
+            m_ItemDataFile.close();
+        }
+    }
 }
 
 bool NewItemDialog::isValidInfo()

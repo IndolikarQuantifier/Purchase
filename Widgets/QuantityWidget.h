@@ -15,6 +15,7 @@ public:
     explicit QuantityWidget(QWidget* parent = nullptr);
     ~QuantityWidget();
     unsigned int quantityCount();
+    void setQty(unsigned int qty);
 
 private slots:
     void OnRemoveButtonClicked();

@@ -5,12 +5,16 @@ project(Purchase VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+
+add_subdirectory(Common)
+add_subdirectory(Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -23,17 +27,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Purchase
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        Widgets/QuantityWidget.h Widgets/QuantityWidget.cpp Widgets/QuantityWidget.ui
-        Common/DataFormat/OrderDetails.h Common/DataFormat/OrderDetails.cpp
-        Common/DataFormat/OrderSummary.h Common/DataFormat/OrderSummary.cpp
-        Widgets/DataUpdatation/NewItemDialog.h Widgets/DataUpdatation/NewItemDialog.cpp Widgets/DataUpdatation/NewItemDialog.ui
-        Common/Constants.h
-        Common/Items.h
-        Common/CMakeLists.txt
-        Widgets/Overlay/NavigationOverlay.h Widgets/Overlay/NavigationOverlay.cpp Widgets/Overlay/NavigationOverlay.ui
-        Widgets/TakeOrder/TakeOrderMainOverlay.h Widgets/TakeOrder/TakeOrderMainOverlay.cpp
-        Widgets/TakeOrder/TakeOrder.h Widgets/TakeOrder/TakeOrder.cpp Widgets/TakeOrder/TakeOrder.ui
     )
+    target_link_libraries(Purchase PRIVATE Common Widgets)
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Purchase APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
